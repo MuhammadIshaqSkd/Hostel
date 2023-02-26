@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% include "mainheader.html " %}
+
+<head>
+    <!-- CSS here -->
+    <link href="{% static 'css/default.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box
+        }
+
+        html
+         {
+            font-family: sans-serif;
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent
+         }
+        body {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #202124;
+            text-align: left;
+            background-color: #f7f7f7;
+            /background-color: rebeccapurple;/
+            font: 400 16px/1.7777777778 Open sans, system-ui, -apple-system, sans-serif
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+            background-color: transparent
+        }
+        .buy-btn{
+            width: 40%;
+        }
+        @media (max-width:390px) {
+            .buy-btn{
+              width: 70%;
+          }
+        }
+
+
+
+    </style>
+</head>
+
+<main>
+    <br>
+    {% for i in hostel_details %}
+
+    <!-- product-details-start -->
+    <div class="product-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="product__details-nav d-sm-flex align-items-start align-center">
+                        <div class="product__details-thumb">
+                            <div class="tab-content" id="productThumbContent">
+                                <div aria-labelledby="thumbOne-tab" class="tab-pane fade show active" id="thumbOne"
+                                     role="tabpanel">
+                                    <div class="" style="display: flex;justify-content: center;">
+                                          {% if i.hostel_img %}
+                                            <img alt="" class="product_img col-lg-10 col-md-10"  src='/media/{{i.hostel_img}}'
+                                            style="height:200px;width: auto; max-width: 240px;">
+                                            {% else %}
+                                            <img alt="" class="product_img col-lg-10 col-md-10"  src='{% static "img/hostelvector.jpg" %}'
+                                            style="height:200px;width: auto; max-width: 240px;">
+                                          {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="product-stock mb-15">
+                        <form action="/Checkout/" class="d-block d-sm-none mt-2 mx-auto buy-btn" method="POST">
+                            {% csrf_token %}
+                            <input hidden value="{{i.id}}" name="id"/>
+                            <input type="submit" value="Book your seat" class="btn btn-danger w-100 mt-2" />
+                        </form>
+
+                    </div>
+                    <div class="product__details-content txt-cen">
+                        <h6 class="mb-10 text-center">{{i.name}}</h6>
+                        <hr style="border:1px solid green;">
+                        <div class="price mb-20 mt-10">
+                            <span>Hostel City:  {{i.city}}</span>
+                        </div>
+                        <div class="price mb-20 mt-10">
+                            <span>Total rooms in Hostels : {{i.Total_rooms}}</span>
+                        </div>
+
+                        <div class="product-stock mb-20">
+                            {% if i.Available_rooms == 0 %}
+                            <h5>Availability: <span style="color:red;">All rooms are booked</span></h5>
+                            {% else %}
+                            <h5>Availability: <span>{{i.Available_rooms}} rooms </span></h5>
+                            {% endif %}
+                        </div>
+                        <div class="product-stock mb-20">
+                            <h3 class="ml-lg-5 ml-0"> Available rooms Type: </h3>
+                            <h5>{% if i.One_bed_rooms > 0%}
+                                <span>One bed rooms</span>
+                                {% endif %}
+                                {% if i.Two_bed_rooms > 0%}
+                                <span>Two bed rooms</span>
+                                {% endif %}
+                                {% if i.Three_bed_rooms > 0%}
+                                <span>Three bed rooms</span>
+                                {% endif %}
+                                {% if i.Four_bed_rooms > 0%}
+                                <span>Four bed rooms</span>
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <div class="product-stock mb-15">
+                            <form action="/Checkout/" class="d-none d-sm-block" method="POST">
+                                {% csrf_token %}
+                                <input hidden name="id" value="{{i.id}}"/>
+                                 <a href="/seatconfirmation/" class="btn btn-outline-danger w-100">
+                        Book Your Seat
+                    </a>
+                            </form>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- product-details-end -->
+
+    <!-- product-details-des-start -->
+    <div class="product-details-des mt-40 mb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product__details-des-tab">
+                        <ul class="nav nav-tabs" id="productDesTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="des" aria-selected="true" class="nav-link active" data-bs-target="#des"
+                                        data-bs-toggle="tab" id="des-tab" role="tab" type="button">Description
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="aditional" aria-selected="false" class="nav-link"
+                                        data-bs-target="#aditional" data-bs-toggle="tab" id="aditional-tab" role="tab"
+                                        type="button">Additional information
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="review" aria-selected="false" class="nav-link" data-bs-target="#review"
+                                        data-bs-toggle="tab" hidden id="review-tab" role="tab"
+                                        type="button">Reviews (1)
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="prodductDesTaContent">
+                <div aria-labelledby="des-tab" class="tab-pane fade active show w-100" id="des" role="tabpanel">
+                    <div class="product__details-des-wrapper">
+                        <p class="des-text mb-35">
+                        <p>{{i.Description | linebreaks}}</p>
+
+                    </div>
+                </div>
+                <div aria-labelledby="aditional-tab" class="tab-pane fade" id="aditional" role="tabpanel">
+                    <div class="product__desc-info">
+                        <ul>
+                            <li>
+                                <h6>Hostel name</h6>
+                                <span>{{i.name}}</span>
+                            </li>
+                            <li>
+                                <h6>Hostel Number</h6>
+                                <span>+92{{i.hostel_number}}</span>
+                            </li>
+                            {% if i.One_bed_rooms > 0%}
+                            <li>
+                                <h6>One bed per room rent</h6>
+                                <span>{{i.Onebed_per_seat_price}} Rs</span>
+                            </li>
+                            {% endif %}
+
+                            {% if i.Two_bed_rooms > 0%}
+                            <li>
+                                <h6>Two bed per room rent</h6>
+                                <span>{{i.Two_bed_per_seat_price}} Rs</span>
+                            </li>
+                            {% endif %}
+
+                            {% if i.Three_bed_rooms > 0%}
+                            <li>
+                                <h6>Three bed per room rent</h6>
+                                <span>{{i.Three_bed_per_seat_price}} Rs</span>
+                            </li>
+                            {% endif %}
+
+                            {% if i.Four_bed_rooms > 0%}
+                            <li>
+                                <h6>Four bed per room rent</h6>
+                                <span>{{i.Four_bed_per_seat_price}} Rs</span>
+                            </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- product-details-des-end -->
+    {% endfor %}
+</main>
+
+{% endblock %}

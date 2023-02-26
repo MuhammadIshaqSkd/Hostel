@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Confirmation</title>
+
+</head>
+<style>
+
+.form {
+
+    width: 40%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.btn {
+  background-color: #f44336;
+  color: #fff;
+  padding: 12px;
+  margin-left:49%;
+  border: none;
+  width: 15%;
+  border-radius: 23px;
+  cursor: pointer;
+  font-size: 17px;
+  text-align:center;
+}
+.seatconfirmation-col h1{
+
+    font-size: 36px;
+    font-weight: 600;
+    margin-left:5%;
+    margin-top:20px;
+    text-align:center;
+}
+.row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.seatconfirmation-col{
+    flex-basis: 41%;
+    background: #d6cfcf;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+
+
+</style>
+<body>
+
+
+<section class="seatconfirmation-col">
+<h1>Seat Confirmation</h1>
+    <div class="form">
+        <label for="name">Name </label>
+            <input type="text" id="name" name="yourname" placeholder="Enter Your Name">
+
+             <label for="email">Email </label>
+                <input type="text" id="email" name="youremail" placeholder="Enter Your Email">
+
+        <label for="number">Number </label>
+            <input type="text" id="number" name="yournumber" placeholder="Enter Your number">
+
+<!--<a href=""class="btn btn-primary">Book</a>-->
+       <button onclick="alert('Your seat is booked')"id="btn" class="btn">Book <a href="/index.html"/> </button>
+
+    </div>
+
+    </div>
+
+    </section>
+
+</body>
+</html>

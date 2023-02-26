@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><l>E-Hostel Management</l></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/HostelCard/">Hostels</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#overServices/">Services</a>
+        </li>
+      <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#Contact/">Contact Us</a>
+        </li>
+
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    <ul class="navbar-nav">
+      <li class="nav-item form-inline my-2 my-lg-1">
+          <a class="nav-link active m-lg-2" aria-current="page" href="/userportal/">Login</a>
+        </li>
+      <li class="nav-item form-inline my-2 my-lg-1">
+<!--        #   -->
+          <a class="btn btn-danger m-lg-2" aria-current="page" data-bs-toggle="modal"
+                               href="#Register" role="button">Register</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="modal fade" id="Register" aria-hidden="true"
+                 aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+               <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                        <div class="modal-body tab-content">
+                            <h5 class="text-center">Register As a</h5>
+                            <div class="table-responsive">
+                                <table class="table width:100% align-middle">
+                                    <tbody>
+
+                                    <tr align="center">
+                                      <th>
+                                        <a href="/hostelregistration"  class="btn btn-outline-danger">Hostel Owner</a>
+                                      </th>
+                                        <th>
+                                          <a href="/register/"  class="btn btn-outline-success">Hostel Customer</a>
+                                        </th>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                <br/>
+                            </div>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<br>
+<div class="container-md" style="margin-bottom: 10vh;margin-top: 9vh;">
+
+
+    <section class="container">
+        <div class="row row-cols-1 row-cols-sm-2 g-4 mt-1 row-cols-lg-3 row-cols-xl-4 ">
+            {% for i in Hostel %}
+            <div class="col-sm-6 mt-3">
+                <div class="card" style="min-height: 65vh">
+                    <div style="display: flex;justify-content: center;">
+                        <a href="/Hostel_details/{{i.id}}/">
+                            {% if i.hostel_img %}
+                            <img alt="" class="card-img-top mt-1"  src='{% static "img/7.jpg" %}'
+                            style="height:200px;width: auto; max-width: 240px;">
+                            {% else %}
+                            <img alt="" class="card-img-top mt-1"  src='{% static "img/hostelvector.jpg" %}'
+                            style="height:200px;width: auto; max-width: 240px;">
+                            {% endif %}
+                         </a>
+                    </div>
+                  <div class="card-body">
+                    <h3 class="card-title" style="color: #8186d5;">{{i.name}}</h3>
+                        <h6>City : <span>{{i.city}}</span></h6>
+                        <h6 style="float:left;margin-right:10px;">Description : {{i.Description | truncatewords:5}}</h6>
+
+                        <div class="star" style="float: right;">
+                            <i style="color: yellow;" class="fas fa-star"></i>
+                            <i style="color: yellow;" class="fas fa-star"></i>
+                            <i style="color: yellow;" class="fas fa-star"></i>
+                            <i style="color: yellow;" class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                  </div>
+                  <div class="card-footer">
+                    <a href="/Hostel_details/{{i.id}}/" class="btn btn-outline-danger w-100">
+                        View Details
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        <div class="row mt-5" >
+            <div class="col-xl-12">
+                <div class="basic-pagination text-center pt-30 pb-30">
+                    <nav>
+                        <ul>
+                        <span class="step-links">
+                                {% if Hostel.has_previous %}
+                                    <a href="?page=1">
+                                        <button class="btn btn-outline-warning">&laquo; first</button>
+                                    </a>
+                                    <a href="?page={{ Hostel.previous_page_number }}">
+                                            <button class="btn btn-outline-warning">previous</button>
+                                    </a>
+                                {% endif %}
+                                    <span class="current">
+                                        Page {{ Hostel.number }} of {{ Hostel.paginator.num_pages }}.
+                                    </span>
+
+                                {% if Hostel.has_next %}
+                                    <a href="?page={{ Books.next_page_number }}">
+                                        <button class="btn btn-outline-warning">next</button>
+                                    </a>
+                                    <a href="?page={{ Books.paginator.num_pages }}">
+                                        <button class="btn btn-outline-warning">last &raquo;</button>
+                                    </a>
+                                {% endif %}
+                            </span>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+         id="exampleModal"
+         tabindex="-1">
+        <div class="modal-dialog" style="margin-top:-1px;">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title text-center"
+                        id="exampleModalLabel">Product Details</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                            type="button"></button>
+                </div>
+                <div class="modal-body tab-content">
+                    <div class="table-responsive">
+                        <form action="/Product/" method="POST">
+                            {% csrf_token %}
+                            <select class="form-select form-select-md mb-3"
+                                    name="book_category" required>
+                                <option value="">Select a Books category</option>
+                                 {% for i in Category %}
+                                    <option value="{{i.id}}">
+                                        {{i.category_name}}
+                                    </option>
+                                 {% endfor %}
+                            </select>
+                            <br/>
+                            <button class="btn btn-danger w-100 text-center" type="submit">Filtering</button>
+                        </form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

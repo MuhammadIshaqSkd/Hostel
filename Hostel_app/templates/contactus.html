@@ -1,0 +1,41 @@
+<style>
+  .container h1{
+        text-align:center;
+  }
+  .form-group{
+        text-align:center;
+  }
+  .container h3{
+        text-align:center;
+  }
+  </style>
+    
+    <div class="container">
+      <h1 >Contact us</h1>
+    
+    
+    <h3>Contact us for any Queries</h3>
+  
+  
+    
+    <div class="form-group">
+      <form method="post" action="/contact/">
+      {% csrf_token %}
+        <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <input type="name" class="form-control" id="name" name="name" placeholder="name">
+    <br>
+        <label for="exampleFormControlInput1" class="form-label">Email </label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="abc@example.com">
+    <br>
+        <label for="exampleFormControlTextarea1" class="form-label">   Description</label>
+        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+      
+    <br>
+        <button type="Submit" class="btn btn-primary">Submit</button>
+    
+    <div>
+  </form>
+  
+   
+  
+     contact page 
